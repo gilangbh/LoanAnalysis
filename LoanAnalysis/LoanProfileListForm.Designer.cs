@@ -78,6 +78,8 @@
             this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonExport = new System.Windows.Forms.Button();
+            this.exportAllLoansToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -438,6 +440,7 @@
             this.flowLayoutPanel2.Controls.Add(this.buttonCopyLoan);
             this.flowLayoutPanel2.Controls.Add(this.buttonEditLoan);
             this.flowLayoutPanel2.Controls.Add(this.buttonDeleteLoan);
+            this.flowLayoutPanel2.Controls.Add(this.buttonExport);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 81);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -481,9 +484,10 @@
             this.generateReportToolStripMenuItem1,
             this.editNameToolStripMenuItem,
             this.copyToolStripMenuItem,
+            this.exportAllLoansToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.contextMenuStripProfile.Name = "contextMenuStripProfile";
-            this.contextMenuStripProfile.Size = new System.Drawing.Size(160, 114);
+            this.contextMenuStripProfile.Size = new System.Drawing.Size(160, 158);
             // 
             // newLoanToolStripMenuItem
             // 
@@ -582,6 +586,23 @@
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteLoanToolStripMenuItem_Click);
             // 
+            // buttonExport
+            // 
+            this.buttonExport.Location = new System.Drawing.Point(292, 3);
+            this.buttonExport.Name = "buttonExport";
+            this.buttonExport.Size = new System.Drawing.Size(93, 23);
+            this.buttonExport.TabIndex = 3;
+            this.buttonExport.Text = "Export to Excel";
+            this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
+            // 
+            // exportAllLoansToolStripMenuItem
+            // 
+            this.exportAllLoansToolStripMenuItem.Name = "exportAllLoansToolStripMenuItem";
+            this.exportAllLoansToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.exportAllLoansToolStripMenuItem.Text = "Export All Loans";
+            this.exportAllLoansToolStripMenuItem.Click += new System.EventHandler(this.exportAllLoansToolStripMenuItem_Click);
+            // 
             // LoanProfileListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -665,5 +686,7 @@
         private System.Windows.Forms.ToolStripMenuItem jadwalBungaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem outstandingLoanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem jadwalBungaTahunanToolStripMenuItem;
+        private System.Windows.Forms.Button buttonExport;
+        private System.Windows.Forms.ToolStripMenuItem exportAllLoansToolStripMenuItem;
     }
 }

@@ -83,6 +83,11 @@ namespace LoanAnalysis
                     rowDates.Add(item.Tanggal);
                 }
 
+                foreach (var item in Loan.ListPembayaran)
+                {
+                    rowDates.Add(item.Tanggal);
+                }
+
                 rowDates.Sort();
                 DateTime preDate = rowDates.First();
                 DateTime postDate = rowDates.Last();
@@ -101,30 +106,40 @@ namespace LoanAnalysis
                     double jumlahPenarikan = 0;
                     double saldoakhirhutang = 0;
                     double persenBunga = Loan.InterestRate + Loan.Margin;
-                    int jmlhHari = 0;
+                    int dayCount = 0;
 
+                    bool mustPayPokok = jadwalBayarPokok.Any(x => x == item);
+                    double currentPokok = 0;
+
+                    if (mustPayPokok)
+                    {
+                        currentPokok = pokok;
+                        pokokRepaymentSpreading--;
+                    }
 
                     if (Loan.ListPenarikan.Any(x => x.Tanggal == item))
                     {
                         Penarikan p = Loan.ListPenarikan.SingleOrDefault(x => x.Tanggal == item);
                         jumlahPenarikan = p.Jumlah;
                     }
-
-                    bool bayarPokok = jadwalBayarPokok.Any(x => x == item);
-                    double currentPokok = bayarPokok ? pokok : 0;
+                    if (Loan.ListPembayaran.Any(x => x.Tanggal == item))
+                    {
+                        Pembayaran p = Loan.ListPembayaran.SingleOrDefault(x => x.Tanggal == item);
+                        jumlahPenarikan -= p.Jumlah;
+                    }
 
                     if (table.Rows.Count == 0)
                     {
-                        jmlhHari = (item - Loan.StartDate).Days;
+                        dayCount = (item - Loan.StartDate).Days;
                         saldoakhirhutang = jumlahPenarikan;
                     }
                     else
                     {
-                        jmlhHari = (item - DateTime.Parse(table.Rows[table.Rows.Count - 1][3].ToString())).Days;
+                        dayCount = (item - DateTime.Parse(table.Rows[table.Rows.Count - 1][3].ToString())).Days;
                         saldoakhirhutang = (double)table.Rows[table.Rows.Count - 1][2] + jumlahPenarikan - currentPokok;
                     }
 
-                    double perhitunganBunga = persenBunga * saldoakhirhutang * jmlhHari / 360 / 100;
+                    double perhitunganBunga = persenBunga * saldoakhirhutang * dayCount / 360 / 100;
                     bool bayarBunga = jadwalBayarInterest.Any(x => x == item);
                     double currentBunga = 0;
 
@@ -142,7 +157,7 @@ namespace LoanAnalysis
                     row[1] = jumlahPenarikan;
                     row[2] = Math.Round(saldoakhirhutang, 2);
                     row[3] = item;
-                    row[4] = jmlhHari;
+                    row[4] = dayCount;
                     row[5] = Loan.InterestRate;
                     row[6] = persenBunga;
                     row[7] = Math.Round(perhitunganBunga, 2);

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using LoanAnalysis.Model;
 using System.IO;
 using Newtonsoft.Json;
+using ClosedXML.Excel;
 
 namespace LoanAnalysis
 {
@@ -593,6 +594,34 @@ namespace LoanAnalysis
             ReportForm reportForm = new ReportForm(report);
             reportForm.Show();
         }
+
+        private void exportAllLoansToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            XLWorkbook wb = new XLWorkbook();
+            LoanProfile profile = clickedTreeNode.Tag as LoanProfile;
+
+            foreach (Loan loan in profile.Loans)
+            {
+                DataTable dt = loan.LoanDetails;
+                wb.Worksheets.Add(dt, loan.Name);
+            }
+
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel files|*.xlsx",
+                Title = "Save an Excel File"
+            };
+            saveFileDialog.FileName = profile.Name;
+            var result = saveFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK || result == DialogResult.Yes)
+            {
+                if (!String.IsNullOrWhiteSpace(saveFileDialog.FileName))
+                    wb.SaveAs(saveFileDialog.FileName);
+
+                MessageBox.Show("File saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
         #endregion
 
         #region Events:Loan
@@ -609,6 +638,29 @@ namespace LoanAnalysis
         private void buttonCopyLoan_Click(object sender, EventArgs e)
         {
             CopyLoan(data.SelectedLoan);
+        }
+
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            XLWorkbook wb = new XLWorkbook();
+            DataTable dt = data.SelectedLoan.LoanDetails;
+            wb.Worksheets.Add(dt, textBoxLoanName.Text);
+
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel files|*.xlsx",
+                Title = "Save an Excel File"
+            };
+            saveFileDialog.FileName = textBoxLoanName.Text;
+            var result = saveFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK || result == DialogResult.Yes)
+            {
+                if (!String.IsNullOrWhiteSpace(saveFileDialog.FileName))
+                    wb.SaveAs(saveFileDialog.FileName);
+
+                MessageBox.Show("File saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void copyLoanToolStripMenuItem_Click(object sender, EventArgs e)
@@ -631,5 +683,6 @@ namespace LoanAnalysis
             DeleteLoan((Loan)clickedTreeNode.Tag);
         }
         #endregion
+
     }
 }
