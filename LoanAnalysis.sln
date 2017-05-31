@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanAnalysis", "LoanAnalysis\LoanAnalysis.csproj", "{9BA27187-E422-42ED-BD5B-62973DEF3D07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanAnalysisDebug", "LoanAnalysisDebug\LoanAnalysisDebug.csproj", "{5F5EDDF5-4F95-49C1-8D8B-893A9ADDD76D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9BA27187-E422-42ED-BD5B-62973DEF3D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA27187-E422-42ED-BD5B-62973DEF3D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA27187-E422-42ED-BD5B-62973DEF3D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA27187-E422-42ED-BD5B-62973DEF3D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F5EDDF5-4F95-49C1-8D8B-893A9ADDD76D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5EDDF5-4F95-49C1-8D8B-893A9ADDD76D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5EDDF5-4F95-49C1-8D8B-893A9ADDD76D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5EDDF5-4F95-49C1-8D8B-893A9ADDD76D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
