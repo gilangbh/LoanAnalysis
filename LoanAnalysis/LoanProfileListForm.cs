@@ -201,7 +201,7 @@ namespace LoanAnalysis
                         MessageBox.Show("Profile name has been successfully changed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-                
+
             }
         }
 
@@ -423,12 +423,62 @@ namespace LoanAnalysis
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            
+            LoanProfile profile = clickedTreeNode.Tag as LoanProfile;
+
+            ProfileForm profileForm = new ProfileForm(profile.Name);
+            profileForm.ShowDialog();
+
+            if (profileForm.DialogResult == DialogResult.OK)
+            {
+                string loanProfileName = "";
+                loanProfileName = profileForm.Text;
+
+                LoanProfile source = data.LoanProfiles.SingleOrDefault(x => x.Name == profile.Name);
+
+                if (source != null)
+                {
+                    while(data.LoanProfiles.Any(x => x.Name == loanProfileName))
+                    {
+                        loanProfileName += "_duplicate";
+                    }
+                    source.Name = loanProfileName;
+                    foreach (var loan in source.Loans)
+                    {
+                        loan.LoanProfileName = loanProfileName;
+                    }
+                }
+                
+                BindTreeView();
+                BindSelectedLoan();
+                Program.UpdateDatabase(data);
+            }
+
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This feature is not yet implemented!", "Work in progress", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (clickedTreeNode.Tag is LoanProfile)
+            {
+                var result = MessageBox.Show("Are you sure you want to delete this loan?", "Delete loan?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (result == DialogResult.OK)
+                {
+                    LoanProfile profile = (LoanProfile)clickedTreeNode.Tag;
+                    data.LoanProfiles.Remove(profile);
+
+                    data.SelectedLoan = new Loan();
+
+                    BindTreeView();
+                    BindSelectedLoan();
+                    Program.UpdateDatabase(data);
+
+                    MessageBox.Show("The profile has been deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a loan profile", "Success", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void editProfileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -438,12 +488,72 @@ namespace LoanAnalysis
 
         private void duplicateProfileStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This feature is not yet implemented!", "Work in progress", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (clickedTreeNode.Tag is LoanProfile)
+            {
+
+                var result = MessageBox.Show("Do you want to duplicate this loan?", "Duplicate loan?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (result == DialogResult.OK)
+                {
+                    LoanProfile profile = (LoanProfile)clickedTreeNode.Tag;
+
+                    string newName = profile.Name + "_duplicate";
+
+                    while (data.LoanProfiles.Any(x => x.Name == newName))
+                    {
+                        newName += "_duplicate";
+                    }
+
+                    LoanProfile newProfile = profile.Clone() as LoanProfile;
+                    newProfile.Name = newName;
+                    data.LoanProfiles.Add(newProfile);
+
+                    BindTreeView();
+                    BindSelectedLoan();
+                    Program.UpdateDatabase(data);
+
+                    MessageBox.Show("The profile has been duplicated", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a loan profile", "Success", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void deleteProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This feature is not yet implemented!", "Work in progress", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (clickedTreeNode.Tag is LoanProfile)
+            {
+
+                var result = MessageBox.Show("Are you sure you want to delete this loan?", "Delete loan?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (result == DialogResult.OK)
+                {
+
+
+                    LoanProfile profile = (LoanProfile)clickedTreeNode.Tag;
+                    data.LoanProfiles.Remove(profile);
+
+                    if (data.LoanProfiles.Count > 0)
+                    {
+                        data.SelectedLoan = data.LoanProfiles[0].Loans[0];
+                    }
+                    else
+                    {
+                        data.SelectedLoan = new Loan();
+                    }
+                    BindTreeView();
+                    BindSelectedLoan();
+                    Program.UpdateDatabase(data);
+
+                    MessageBox.Show("The profile has been deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a loan profile", "Success", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void pokokBulananToolStripMenuItem_Click(object sender, EventArgs e)

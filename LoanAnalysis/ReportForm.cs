@@ -26,6 +26,11 @@ namespace LoanAnalysis
 
             this.Report = Report;
             dataGridView1.DataSource = Report.Data;
+
+            foreach (DataGridViewColumn item in dataGridView1.Columns)
+            {
+                item.DefaultCellStyle.Format = "N2";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

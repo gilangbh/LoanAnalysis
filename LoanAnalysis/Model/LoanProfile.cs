@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace LoanAnalysis.Model
 {
-    public class LoanProfile
+    public class LoanProfile : ICloneable
     {
         public string Name { get; set; }
         public List<Loan> Loans { get; set; }
+
+        public object Clone()
+        {
+            LoanProfile profile = new LoanProfile();
+            profile.Name = Name;
+            profile.Loans = new List<Loan>();
+            profile.Loans.AddRange(Loans);
+
+            return profile;
+        }
     }
 }

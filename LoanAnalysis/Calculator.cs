@@ -82,7 +82,7 @@ namespace LoanAnalysis
                 {
                     rowDates.Add(item.Tanggal);
                 }
-
+                
                 rowDates.Sort();
                 rowDates = rowDates.Distinct().ToList();
 
@@ -157,6 +157,7 @@ namespace LoanAnalysis
             foreach (Loan loan in LoanProfile.Loans)
             {
                 table.Columns.Add(loan.Name);
+
                 foreach (DataRow loanRow in loan.LoanDetails.Rows)
                 {
                     if (!years.Any(x => x == Convert.ToDateTime(loanRow[0]).Year))
@@ -165,6 +166,7 @@ namespace LoanAnalysis
                     }
                 }
             }
+            
             foreach (int year in years)
             {
                 for (int i = 1; i < 13; i++)
@@ -194,7 +196,22 @@ namespace LoanAnalysis
                 }
 
                 DataRow summaryRow = table.NewRow();
+                summaryRow[0] = year.ToString();
                 
+                for (int i = 0; i < table.Columns.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        int pos = i;
+                        double result = 0;
+                        for (int j = table.Rows.Count - 12; j < table.Rows.Count; j++)
+                        {
+                            result += Convert.ToDouble(table.Rows[j][pos]);
+                        }
+                        summaryRow[pos] = result;
+                    }
+                }
+                table.Rows.Add(summaryRow);
             }
 
             return table;
@@ -317,6 +334,14 @@ namespace LoanAnalysis
             }
             foreach (int year in years)
             {
+                for (int i = 0; i < table.Columns.Count; i++)
+                {
+                    if (i > 0)
+                    {
+
+                    }
+                }
+
                 for (int i = 1; i < 13; i++)
                 {
                     DataRow row = table.NewRow();
@@ -342,6 +367,38 @@ namespace LoanAnalysis
 
                     table.Rows.Add(row);
                 }
+
+                DataRow summaryRow = table.NewRow();
+                summaryRow[0] = year.ToString();
+
+                for (int i = 0; i < table.Columns.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        int pos = i;
+
+                        string loanName = table.Columns[pos].ColumnName;
+                        double pokok = 0;
+
+                        if (table.Rows.Count == 12)
+                        {
+                            Loan loan = LoanProfile.Loans.SingleOrDefault(x => x.Name == loanName);
+                            pokok = loan.Limit;
+                        }
+                        else
+                        {
+                            pokok = Convert.ToDouble(table.Rows[table.Rows.Count - 13][pos]);
+                        }
+
+                        double result = 0;
+                        for (int j = table.Rows.Count - 12; j < table.Rows.Count; j++)
+                        {
+                            result += Convert.ToDouble(table.Rows[j][pos]);
+                        }
+                        summaryRow[pos] = pokok - result;
+                    }
+                }
+                table.Rows.Add(summaryRow);
             }
 
             return table;
