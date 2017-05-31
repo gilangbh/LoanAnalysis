@@ -82,7 +82,17 @@ namespace LoanAnalysis
                 {
                     rowDates.Add(item.Tanggal);
                 }
-                
+
+                rowDates.Sort();
+                DateTime preDate = rowDates.First();
+                DateTime postDate = rowDates.Last();
+
+                for (int i = 0; i < Loan.GracePeriod; i++)
+                {
+                    rowDates.Add(preDate.AddMonths(-i));
+                    rowDates.Add(postDate.AddMonths(i));
+                }
+
                 rowDates.Sort();
                 rowDates = rowDates.Distinct().ToList();
 

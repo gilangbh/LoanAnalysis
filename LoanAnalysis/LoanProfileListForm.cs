@@ -223,6 +223,10 @@ namespace LoanAnalysis
                     report.Data = Calculator.CalculateReportPokokBulanan(Profile);
                     report.Name = Profile.Name + " Report - Pokok Bulanan";
                     break;
+                case ReportType.BUNGATAHUNAN:
+                    report.Data = Calculator.CalculateReportBungaTahunan(Profile);
+                    report.Name = Profile.Name + " Report - Bunga Tahunan";
+                    break;
             }
 
             return report;
@@ -423,36 +427,38 @@ namespace LoanAnalysis
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            LoanProfile profile = clickedTreeNode.Tag as LoanProfile;
-
-            ProfileForm profileForm = new ProfileForm(profile.Name);
-            profileForm.ShowDialog();
-
-            if (profileForm.DialogResult == DialogResult.OK)
+            if (clickedTreeNode.Tag is LoanProfile)
             {
-                string loanProfileName = "";
-                loanProfileName = profileForm.Text;
+                LoanProfile profile = clickedTreeNode.Tag as LoanProfile;
 
-                LoanProfile source = data.LoanProfiles.SingleOrDefault(x => x.Name == profile.Name);
+                ProfileForm profileForm = new ProfileForm(profile.Name);
+                profileForm.ShowDialog();
 
-                if (source != null)
+                if (profileForm.DialogResult == DialogResult.OK)
                 {
-                    while(data.LoanProfiles.Any(x => x.Name == loanProfileName))
-                    {
-                        loanProfileName += "_duplicate";
-                    }
-                    source.Name = loanProfileName;
-                    foreach (var loan in source.Loans)
-                    {
-                        loan.LoanProfileName = loanProfileName;
-                    }
-                }
-                
-                BindTreeView();
-                BindSelectedLoan();
-                Program.UpdateDatabase(data);
-            }
+                    string loanProfileName = "";
+                    loanProfileName = profileForm.Text;
 
+                    LoanProfile source = data.LoanProfiles.SingleOrDefault(x => x.Name == profile.Name);
+
+                    if (source != null)
+                    {
+                        while (data.LoanProfiles.Any(x => x.Name == loanProfileName))
+                        {
+                            loanProfileName += "_duplicate";
+                        }
+                        source.Name = loanProfileName;
+                        foreach (var loan in source.Loans)
+                        {
+                            loan.LoanProfileName = loanProfileName;
+                        }
+                    }
+
+                    BindTreeView();
+                    BindSelectedLoan();
+                    Program.UpdateDatabase(data);
+                }
+            }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)

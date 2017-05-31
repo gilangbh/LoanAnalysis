@@ -26,6 +26,7 @@ namespace LoanAnalysis
 
             this.Report = Report;
             dataGridView1.DataSource = Report.Data;
+            textBoxReportName.Text = Report.Name;
 
             foreach (DataGridViewColumn item in dataGridView1.Columns)
             {
@@ -44,13 +45,16 @@ namespace LoanAnalysis
                 Filter = "Excel files|*.xlsx",
                 Title = "Save an Excel File"
             };
+            saveFileDialog.FileName = textBoxReportName.Text;
+            var result = saveFileDialog.ShowDialog();
 
-            saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK || result == DialogResult.Yes)
+            {
+                if (!String.IsNullOrWhiteSpace(saveFileDialog.FileName))
+                    wb.SaveAs(saveFileDialog.FileName);
 
-            if (!String.IsNullOrWhiteSpace(saveFileDialog.FileName))
-                wb.SaveAs(saveFileDialog.FileName);
-
-            MessageBox.Show("File saved successfully","Saved",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("File saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
