@@ -228,6 +228,10 @@ namespace LoanAnalysis
                     report.Data = Calculator.CalculateReportBungaTahunan(Profile);
                     report.Name = Profile.Name + " Report - Bunga Tahunan";
                     break;
+                case ReportType.SUMMARYTAHUNAN:
+                    report.Data = Calculator.CalculateReportSummaryTahunan(Profile);
+                    report.Name = Profile.Name + " Report - Summary Tahunan";
+                    break;
             }
 
             return report;
@@ -247,6 +251,11 @@ namespace LoanAnalysis
                     if (profile.Loans != null)
                     {
                         loanForm.Loan.LoanProfileName = profile.Name;
+
+                        while (profile.Loans.Any(x => x.Name == loanForm.Loan.Name))
+                        {
+                            loanForm.Loan.Name += " - duplicate";
+                        }
                         profile.Loans.Add(loanForm.Loan);
                     }
                     else
@@ -283,9 +292,13 @@ namespace LoanAnalysis
                 {
                     if (profile.Loans != null)
                     {
-                        Loan targetLoan = profile.Loans.Where(x => x.Name == oldLoan.Name).SingleOrDefault();
+                        List<Loan> targetLoans = profile.Loans.Where(x => x.Name == oldLoan.Name).ToList();
 
-                        profile.Loans.Remove(targetLoan);
+                        foreach (var item in targetLoans)
+                        {
+                            profile.Loans.Remove(item);
+                        }
+
                         profile.Loans.Add(newLoan);
                     }
                     else
@@ -590,6 +603,14 @@ namespace LoanAnalysis
         private void outstandingLoanTahunanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Report report = GenerateReport((LoanProfile)clickedTreeNode.Tag, ReportType.OUTSTANDINGTAHUNAN);
+
+            ReportForm reportForm = new ReportForm(report);
+            reportForm.Show();
+        }
+
+        private void summaryTahunanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Report report = GenerateReport((LoanProfile)clickedTreeNode.Tag, ReportType.SUMMARYTAHUNAN);
 
             ReportForm reportForm = new ReportForm(report);
             reportForm.Show();

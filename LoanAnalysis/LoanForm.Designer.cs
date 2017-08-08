@@ -57,6 +57,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.textBoxProfileName = new System.Windows.Forms.TextBox();
             this.textBoxBankName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.dateTimePickerFirstRepayment = new System.Windows.Forms.DateTimePicker();
+            this.checkBoxUseFirstRepayment = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -93,14 +96,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(698, 571);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(698, 593);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel3);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 211);
+            this.groupBox1.Location = new System.Drawing.Point(3, 239);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(692, 315);
             this.groupBox1.TabIndex = 28;
@@ -150,6 +153,7 @@
             // 
             this.dataGridViewPenarikan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPenarikan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewPenarikan.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewPenarikan.Location = new System.Drawing.Point(3, 28);
             this.dataGridViewPenarikan.Name = "dataGridViewPenarikan";
             this.tableLayoutPanel3.SetRowSpan(this.dataGridViewPenarikan, 2);
@@ -172,7 +176,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(692, 202);
+            this.groupBox2.Size = new System.Drawing.Size(692, 230);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Loan Details";
@@ -204,10 +208,13 @@
             this.tableLayoutPanel2.Controls.Add(this.label12, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.textBoxProfileName, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.textBoxBankName, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label13, 0, 8);
+            this.tableLayoutPanel2.Controls.Add(this.dateTimePickerFirstRepayment, 1, 8);
+            this.tableLayoutPanel2.Controls.Add(this.checkBoxUseFirstRepayment, 3, 8);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 8;
+            this.tableLayoutPanel2.RowCount = 9;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -216,7 +223,8 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(686, 183);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(686, 211);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // numericMargin
@@ -367,9 +375,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(3, 58);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(30, 13);
+            this.label9.Size = new System.Drawing.Size(98, 13);
             this.label9.TabIndex = 26;
-            this.label9.Text = "Date";
+            this.label9.Text = "Contract Start Date";
             // 
             // label3
             // 
@@ -409,14 +417,45 @@
             this.textBoxBankName.Size = new System.Drawing.Size(570, 20);
             this.textBoxBankName.TabIndex = 38;
             // 
+            // label13
+            // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(3, 190);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(87, 13);
+            this.label13.TabIndex = 39;
+            this.label13.Text = "Repayment Date";
+            // 
+            // dateTimePickerFirstRepayment
+            // 
+            this.dateTimePickerFirstRepayment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.SetColumnSpan(this.dateTimePickerFirstRepayment, 2);
+            this.dateTimePickerFirstRepayment.Location = new System.Drawing.Point(113, 186);
+            this.dateTimePickerFirstRepayment.Name = "dateTimePickerFirstRepayment";
+            this.dateTimePickerFirstRepayment.Size = new System.Drawing.Size(224, 20);
+            this.dateTimePickerFirstRepayment.TabIndex = 40;
+            // 
+            // checkBoxUseFirstRepayment
+            // 
+            this.checkBoxUseFirstRepayment.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.checkBoxUseFirstRepayment.AutoSize = true;
+            this.checkBoxUseFirstRepayment.Location = new System.Drawing.Point(343, 188);
+            this.checkBoxUseFirstRepayment.Name = "checkBoxUseFirstRepayment";
+            this.checkBoxUseFirstRepayment.Size = new System.Drawing.Size(147, 17);
+            this.checkBoxUseFirstRepayment.TabIndex = 41;
+            this.checkBoxUseFirstRepayment.Text = "Use pivot repayment date";
+            this.checkBoxUseFirstRepayment.UseVisualStyleBackColor = true;
+            this.checkBoxUseFirstRepayment.CheckedChanged += new System.EventHandler(this.checkBoxUseFirstRepayment_CheckedChanged);
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
             this.flowLayoutPanel1.Controls.Add(this.buttonSave);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 532);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 560);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(692, 36);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(692, 29);
             this.flowLayoutPanel1.TabIndex = 30;
             // 
             // buttonCancel
@@ -453,7 +492,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 571);
+            this.ClientSize = new System.Drawing.Size(698, 593);
             this.Controls.Add(this.tableLayoutPanel1);
             this.MinimumSize = new System.Drawing.Size(714, 610);
             this.Name = "LoanForm";
@@ -515,5 +554,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBoxProfileName;
         private System.Windows.Forms.TextBox textBoxBankName;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFirstRepayment;
+        private System.Windows.Forms.CheckBox checkBoxUseFirstRepayment;
     }
 }

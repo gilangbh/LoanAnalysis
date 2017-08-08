@@ -34,8 +34,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBoxReportName = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -119,6 +119,14 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // textBoxReportName
+            // 
+            this.textBoxReportName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxReportName.Location = new System.Drawing.Point(113, 8);
+            this.textBoxReportName.Name = "textBoxReportName";
+            this.textBoxReportName.Size = new System.Drawing.Size(214, 20);
+            this.textBoxReportName.TabIndex = 2;
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -131,14 +139,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(778, 355);
             this.dataGridView1.TabIndex = 1;
             // 
-            // textBoxReportName
-            // 
-            this.textBoxReportName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxReportName.Location = new System.Drawing.Point(113, 8);
-            this.textBoxReportName.Name = "textBoxReportName";
-            this.textBoxReportName.Size = new System.Drawing.Size(214, 20);
-            this.textBoxReportName.TabIndex = 2;
-            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,7 +146,7 @@
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ReportForm";
-            this.Text = "ReportForm";
+            this.Text = "View Report";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

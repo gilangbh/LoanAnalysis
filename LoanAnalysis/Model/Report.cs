@@ -19,6 +19,7 @@ namespace LoanAnalysis.Model
         POKOKBULANAN,
         BUNGABULANAN,
         BUNGATAHUNAN,
-        OUTSTANDINGTAHUNAN
+        OUTSTANDINGTAHUNAN,
+        SUMMARYTAHUNAN
     }
 }

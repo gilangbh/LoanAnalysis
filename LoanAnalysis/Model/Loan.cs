@@ -25,6 +25,8 @@ namespace LoanAnalysis.Model
         public LoanRow[] LoanRows { get; set; }
         public DataTable LoanDetails { get; set; }
         public string LoanProfileName { get; set; }
+        public DateTime FirstRepaymentDate { get; set; }
+        public bool IsUsingFirstRepaymentDate { get; set; }
 
         public Loan()
         {
@@ -51,6 +53,8 @@ namespace LoanAnalysis.Model
             loan.ListPembayaran.AddRange(ListPembayaran);
             loan.LoanDetails = LoanDetails.Copy();
             loan.LoanProfileName = LoanProfileName;
+            loan.FirstRepaymentDate = FirstRepaymentDate;
+            loan.IsUsingFirstRepaymentDate = IsUsingFirstRepaymentDate;
 
             return loan;
             
